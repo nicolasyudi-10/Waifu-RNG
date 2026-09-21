@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Waifu RNG — um simulador Gacha/RNG de coleção de personagens de anime.">
+  <title>Waifu RNG — Anime Gacha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Waifu RNG início">
+        <span class="brand-mark">✦</span>
+        <span>
+          <strong>WAIFU<span>RNG</span></strong>
+          <small>ANIME GACHA SIMULATOR</small>
+        </span>
+      </a>
+
+      <div class="wallet" aria-label="Carteira de gemas">
+        <span class="gem-icon">◆</span>
+        <div>
+          <small>GEMAS</small>
+          <strong id="gemCount">100</strong>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">✦ SISTEMA DE INVOCAÇÃO</p>
+          <h1>Seu próximo <span>destino</span> está a um roll.</h1>
+          <p class="hero-text">
+            Teste sua sorte, descubra novas waifus e complete seu Waifudex.
+            Cada invocação custa apenas 10 gemas.
+          </p>
+          <div class="odds">
+            <span><i class="dot common"></i> Comum 50%</span>
+            <span><i class="dot rare"></i> Rara 30%</span>
+            <span><i class="dot epic"></i> Épica 15%</span>
+            <span><i class="dot legendary"></i> Lendária 5%</span>
+          </div>
+        </div>
+
+        <div class="summon-panel" id="summonPanel">
+          <div class="summon-ring ring-outer"></div>
+          <div class="summon-ring ring-inner"></div>
+          <div class="summon-core" id="summonCore">
+            <span class="core-symbol">✦</span>
+            <span class="core-label">RNG</span>
+          </div>
+          <div class="summon-status" id="summonStatus">PRONTO PARA INVOCAR</div>
+        </div>
+      </section>
+
+      <section class="actions-section">
+        <button class="roll-button" id="rollButton">
+          <span class="roll-icon">✦</span>
+          <span>
+            <strong>GIRAR / ROLL</strong>
+            <small>10 GEMAS</small>
+          </span>
+          <span class="roll-arrow">→</span>
+        </button>
+
+        <button class="free-button" id="freeGemsButton">
+          <span>＋</span>
+          <span>
+            <strong>Coletar Gemas Grátis</strong>
+            <small id="dailyStatus">Recompensa diária disponível</small>
+          </span>
+        </button>
+
+        <p class="error-message" id="errorMessage" role="alert"></p>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="panel stats-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">PERFIL</p>
+              <h2>Estatísticas</h2>
+            </div>
+            <span class="panel-icon">◈</span>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat-card">
+              <span>Invocações</span>
+              <strong id="rollCount">0</strong>
+            </div>
+            <div class="stat-card">
+              <span>Descobertas</span>
+              <strong id="collectionCount">0/12</strong>
+            </div>
+            <div class="stat-card">
+              <span>Lendárias</span>
+              <strong id="legendaryCount">0</strong>
+            </div>
+            <div class="stat-card">
+              <span>Épicas</span>
+              <strong id="epicCount">0</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel featured-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">ÚLTIMA INVOCAÇÃO</p>
+              <h2 id="lastResultTitle">Aguardando...</h2>
+            </div>
+            <span class="rarity-badge common" id="lastRarity">—</span>
+          </div>
+
+          <div class="last-result" id="lastResult">
+            <div class="empty-result">
+              <span>✦</span>
+              <p>Faça seu primeiro roll para revelar uma waifu.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="collection-section">
+        <div class="section-header">
+          <div>
+            <p class="section-kicker">WAIFUDEX</p>
+            <h2>Coleção</h2>
+            <p class="muted">Descubra todas as personagens disponíveis.</p>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-label">
+              <span id="progressText">0 / 12 obtidas</span>
+              <strong id="progressPercent">0%</strong>
+            </div>
+            <div class="progress-bar">
+              <span id="progressBar"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="collection-filters" id="collectionFilters">
+          <button class="filter active" data-filter="all">Todas</button>
+          <button class="filter" data-filter="Comum">Comum</button>
+          <button class="filter" data-filter="Rara">Rara</button>
+          <button class="filter" data-filter="Épica">Épica</button>
+          <button class="filter" data-filter="Lendária">Lendária</button>
+        </div>
+
+        <div class="collection-grid" id="collectionGrid"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>WAIFURNG © 2026</span>
+      <span>Vanilla JS · HTML5 · CSS3</span>
+    </footer>
+  </div>
+
+  <div class="modal-backdrop" id="resultModal" aria-hidden="true">
+    <div class="result-modal" id="resultModalCard" role="dialog" aria-modal="true" aria-labelledby="modalName">
+      <button class="modal-close" id="closeModal" aria-label="Fechar">×</button>
+      <div class="modal-rays"></div>
+      <div class="modal-content">
+        <div class="modal-image-wrap" id="modalImageWrap">
+          <img id="modalImage" src="" alt="">
+          <div class="modal-rarity" id="modalRarity">LENDÁRIA</div>
+        </div>
+        <div class="modal-info">
+          <p class="section-kicker">NOVA DESCOBERTA</p>
+          <h2 id="modalName">Miku Nakano</h2>
+          <p class="modal-anime" id="modalAnime">The Quintessential Quintuplets</p>
+          <p class="modal-description" id="modalDescription"></p>
+          <div class="modal-meta">
+            <span id="modalId">#001</span>
+            <span>✦ Personagem desbloqueada</span>
+          </div>
+          <button class="modal-action" id="modalAction">Adicionar ao Waifudex</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
